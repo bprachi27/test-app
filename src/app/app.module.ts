@@ -9,6 +9,7 @@ import { routingComponent, AppRoutingModule } from './app-routing.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     MatSidenavModule,
     MatListModule,
-    BrowserAnimationsModule 
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [EmployeesServiceService],
   bootstrap: [AppComponent]
