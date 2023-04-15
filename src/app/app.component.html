@@ -1,0 +1,24 @@
+<div style="text-align: center;">
+  <div>
+    <h1>
+      welcome to {{title}}!!
+    </h1>
+  </div>
+  <div class="example-sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+  </div>
+</div>
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p>Auto-resizing sidenav</p>
+    <button (click)="onDepartment()" mat-raised-button>
+      Department
+    </button>
+    <button (click)="onEmployee()" mat-raised-button>
+      Employee
+    </button>
+  </mat-drawer>
+  <router-outlet></router-outlet>
+</mat-drawer-container>

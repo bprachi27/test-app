@@ -1,0 +1,8 @@
+<p>Employee List</p>
+<!-- <ul (click)="onselect(employee)" *ngFor="let employee of employees">
+    <li>{{employee.name}}</li>
+</ul> -->
+
+<mat-list (click)="onselect(employee)" *ngFor="let employee of employees" role="list" >
+    <mat-list-item role="listitem">{{employee.name}}</mat-list-item>
+</mat-list>
