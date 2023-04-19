@@ -1,30 +1,27 @@
-<div style="text-align: center;">
-  <div>
-    <h1 style=" padding-top: 10px;">
-      welcome to {{title}}!!
-    </h1>
-  </div>
+<div style="display: flex;" >
   <div class="example-sidenav-content" style="padding-bottom: 10px">
+    <h1 style=" padding-top: 10px;">welcome to {{title}}!!</h1>
     <button type="button" mat-button (click)="drawer.toggle()">
       Toggle sidenav
     </button>
   </div>
+  <mat-drawer-container class="example-container">
+    <mat-drawer #drawer class="example-sidenav" mode="side" style="width:400px">
+      <h4 style="padding-top: 10px; padding-left: 30%;">Auto-resizing sidenav</h4>
+      <div style="width: 50%; padding-left: 25%;">
+        <button (click)="onDepartment()" mat-raised-button style="width: 100%;">
+          Department
+        </button>
+      </div>
+      <div style="width: 50%; padding-left: 25%;">
+        <button (click)="onEmployee()" mat-raised-button style="width: 100%;">
+          Employee
+        </button>
+      </div>
+    </mat-drawer>
+    <div style="padding-left: 50px; padding-top: 10px;">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-container>
+  
 </div>
-<mat-drawer-container class="example-container">
-  <mat-drawer #drawer class="example-sidenav" mode="side" style="width:400px">
-    <h4 style="padding-top: 10px; padding-left: 30%;">Auto-resizing sidenav</h4>
-    <div style="width: 50%; padding-left: 25%;">
-      <button (click)="onDepartment()" mat-raised-button style="width: 100%;">
-        Department
-      </button>
-    </div>
-    <div style="width: 50%; padding-left: 25%;">
-      <button (click)="onEmployee()" mat-raised-button style="width: 100%;">
-        Employee
-      </button>
-    </div>
-  </mat-drawer>
-  <div style="padding-left: 50px; padding-top: 10px;">
-    <router-outlet></router-outlet>
-  </div>
-</mat-drawer-container>
