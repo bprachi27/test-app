@@ -19,12 +19,13 @@ export class EmployeeComponent {
   public employees: employee[] = []  
   @ViewChild(MatTable) table: MatTable<employee> | undefined;
   displayedColumns: string[] = ['id', 'name', 'age'];
-  dataSource = [...this.employees];
+  dataSource: employee[] = [];
 
   constructor(private _employeeService: EmployeesServiceService, private router: Router) {
     _employeeService.getEmployee().subscribe(data => {
       console.log(data)  
       this.employees=data
+      this.dataSource=data
 
       })
   }
@@ -35,14 +36,14 @@ export class EmployeeComponent {
 
 
 
-  addData() {
-    const randomElementIndex = Math.floor(Math.random() * this.employees.length);
-    this.dataSource.push(this.employees[randomElementIndex]);
-    this.table?.renderRows();
-  }
+  // addData() {
+  //   const randomElementIndex = Math.floor(Math.random() * this.employees.length);
+  //   this.dataSource.push(this.employees[randomElementIndex]);
+  //   this.table?.renderRows();
+  // }
 
-  removeData() {
-    this.dataSource.pop();
-    this.table?.renderRows();
-  }
+  // removeData() {
+  //   this.dataSource.pop();
+  //   this.table?.renderRows();
+  // }
 }

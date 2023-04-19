@@ -27,7 +27,7 @@ export class EmployeesServiceService {
 
     let employee:employee[] = []
 
-    for(let i=0; i<10000; i++) {
+    for(let i=0; i<10; i++) {
       employee.push({
         "id": i+1,
         "name": faker.name.fullName(),
