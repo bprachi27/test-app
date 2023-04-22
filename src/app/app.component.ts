@@ -17,9 +17,11 @@ export class AppComponent {
   }
 
   onDepartment(){
+    this.title = 'Department List'
     this.router.navigate(['/departments',])
   }
   onEmployee(){
+    this.title = 'Employee List'
     this.router.navigate(['/employees',])
   }
 }

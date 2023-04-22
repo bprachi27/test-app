@@ -9,3 +9,20 @@ padding-bottom: 16px;
 .demo-button + .demo-button {
 margin-left: 8px;
 }
+
+.wrapper {
+height: 600px;
+}
+
+table {
+width: 100%;
+table-layout: fixed;
+}
+
+.col-sm {
+width: 70px;
+}
+
+.mat-row:hover {
+    background-color: #eab676
+  }

@@ -1,0 +1,32 @@
+<div>
+    <form [formGroup]="formGroup" >
+        <div class="example-container">
+            <mat-form-field appearance="fill" style="width: 400px">
+                <mat-label>Enter Your First Name</mat-label>
+                <input matInput formControlName="first_name" required>
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-form-field appearance="fill" style="width: 400px">
+                <mat-label>Enter Your Last Name</mat-label>
+                <input matInput formControlName="last_name" required>
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-radio-group formControlName="gender">
+                <mat-radio-button value="Female">Female</mat-radio-button>
+                <mat-radio-button value="Male">Male</mat-radio-button>
+                <mat-radio-button value="Others">Others</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="example-container" >
+            <mat-form-field appearance="fill" style="width: 400px">
+            <mat-label>Enter your Age</mat-label>
+            <input matInput formControlName="age" required>
+            </mat-form-field>
+        </div>
+        <button mat-raised-button (click)="onSubmit()" color="primary" style="margin-right: 20px;">submit</button>
+        <button mat-raised-button (click)="reset()" color="primary"style="margin-right: 20px;">reset</button>
+        <button mat-raised-button (click)="onDelete(formGroup)" color="primary">delete</button>
+    </form>
+</div>
