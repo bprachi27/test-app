@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { EmployeesServiceService } from '../employees-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface employee {
   'id': number,
@@ -18,33 +18,31 @@ interface employee {
 })
 export class EmployeeDetailComponent {
 
-  public employees: employee[] = [] 
-  public employee: employee | undefined
+  employees: employee[] = [];
+  employee: employee | undefined;
   
-  public formGroup: FormGroup = new FormGroup({
-    id    : new FormControl<number | null>(null),
-    first_name  : new FormControl<string | null>(null),
-    last_name  : new FormControl<string | null>(null),
-    gender  : new FormControl<string | null>(null),
-    age   : new FormControl<number | null>(null)
-  })
+  formGroup = new FormGroup({
+    id          : new FormControl<number | null>(0),
+    first_name  : new FormControl<string | null>(null, []),
+    last_name   : new FormControl<string | null>(null, [Validators.required, Validators.maxLength(100)]),
+    gender      : new FormControl<string | null>(null, [Validators.required]),
+    age         : new FormControl<number | null>(null, [Validators.required, Validators.max(90), Validators.min(0)])
+  });
 
-  getId() {
-    return parseInt(this.activatedRoute.snapshot.paramMap.get('id') as string)
+  get id() {
+
+    return parseInt(this.activatedRoute.snapshot.paramMap.get('id') as string);
   }
 
-  constructor(private _employeeService: EmployeesServiceService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(
+    private employeeService: EmployeesServiceService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router)
+   {
     
-    // _employeeService.getEmployee().subscribe(
-    //   data =>{
-    //     this.employees=data
-    //     this.employee = this.employees.find((v) => v.id===this.getId()) as employee;
-    //   }
-    // )
-    
-    if (this.getId() !== 0){
+    if (this.id !== 0) {
       
-      this.employee = _employeeService.employees.find(v => v.id===this.getId()) as employee
+      this.employee = employeeService.employees.find(v => v.id===this.id) as employee
   
       this.formGroup.patchValue({
         id          : this.employee.id,
@@ -52,24 +50,28 @@ export class EmployeeDetailComponent {
         last_name   : this.employee.last_name,
         gender      : this.employee.gender,
         age         : this.employee.age
-      })
-      
+      });
     }
 
-  }
+    (this.formGroup.get('first_name') as AbstractControl).setValidators([Validators.required, Validators.maxLength(100), this.uniqueName.bind(this)]);
+}
 
-  ngOnInit() {
-    
-  }
-
-  onSubmit() {
+  onSave() {
     let employee = this.formGroup.value as employee  
  
-    employee.id = this._employeeService.employees.length + 1
+    employee.id = this.employeeService.employees.length + 1
     
-    console.log(this.employees)
+    this.employeeService.employees.push(employee)
+    
+    this.router.navigate(['/employees'])
+  }
 
-    this._employeeService.employees.push(employee)
+  onUpdate() {
+    let employee = this.formGroup.value as employee;
+    
+    let employeeIndex = this.employeeService.employees.findIndex(v => v.id == employee.id)
+
+    this.employeeService.employees[employeeIndex] = employee
     
     this.router.navigate(['/employees'])
   }
@@ -79,7 +81,55 @@ export class EmployeeDetailComponent {
   }
 
   onDelete(formGroup:any) {
-    console.log(formGroup)
+    
+    const index = this.employeeService.employees.findIndex(v => v.id == formGroup.get('id').value)
+
+    index > -1 ? this.employeeService.employees.splice(index,1) : null
+
+    this.router.navigate(['/employees'])
   }
 
+  firstNameError(): string {
+    const formControl = this.formGroup.get('first_name') as FormControl;
+
+    return formControl.hasError('required') ? "First name is required" :
+            formControl.hasError('maxlength') ? "value must be less than 100 characters" :
+            formControl.hasError('uniqueName') ? "this name is already exists" : '';
+  }
+
+  lastNameError() {
+    
+    const formControl = this.formGroup.get('last_name') as FormControl;
+
+    return formControl.hasError('required') ? "Last name is required" :
+            formControl.hasError('maxlength') ? "value must be less than 100 characters" : '';
+  }
+  
+  ageError() {
+
+    const formControl = this.formGroup.get('age') as FormControl;
+
+    return formControl.hasError('required') ? "age is required" :  '';
+  }
+  
+  genderError() {
+
+    const formControl = this.formGroup.get('gender') as FormControl;
+
+    return formControl.hasError('required') ? "gender is required" :  '';
+  }
+
+  uniqueName(control: AbstractControl): {[key: string]: any} | null {
+
+    if (this.employeeService.employees.filter(v => v.id !== this.id).find(v => v.first_name === control.value)) {
+
+      return {
+        'uniqueName' : true
+      };
+    
+    } else {
+    
+      return null;
+    }
+  }
 }

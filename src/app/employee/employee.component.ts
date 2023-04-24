@@ -56,7 +56,7 @@ export class EmployeeComponent implements AfterViewInit, OnDestroy {
   }
 
   addEmployee(){
-    this.router.navigate(['/employees', this._employeeService.employees.length])
+    this.router.navigate(['/employees', '0'])
   }
 
   // addData() {

@@ -4,12 +4,14 @@
             <mat-form-field appearance="fill" style="width: 400px">
                 <mat-label>Enter Your First Name</mat-label>
                 <input matInput formControlName="first_name" required>
+                <mat-error>{{firstNameError()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="example-container">
             <mat-form-field appearance="fill" style="width: 400px">
                 <mat-label>Enter Your Last Name</mat-label>
                 <input matInput formControlName="last_name" required>
+                <mat-error>{{lastNameError()}}</mat-error>
             </mat-form-field>
         </div>
         <div class="example-container">
@@ -17,16 +19,20 @@
                 <mat-radio-button value="Female">Female</mat-radio-button>
                 <mat-radio-button value="Male">Male</mat-radio-button>
                 <mat-radio-button value="Others">Others</mat-radio-button>
+                <mat-error>{{genderError()}}</mat-error>
             </mat-radio-group>
         </div>
         <div class="example-container" >
             <mat-form-field appearance="fill" style="width: 400px">
-            <mat-label>Enter your Age</mat-label>
-            <input matInput formControlName="age" required>
+                <mat-label>Enter your Age</mat-label>
+                <input matInput formControlName="age" required>
+                <mat-error>{{ageError()}}</mat-error>
             </mat-form-field>
         </div>
-        <button mat-raised-button (click)="onSubmit()" color="primary" style="margin-right: 20px;">submit</button>
-        <button mat-raised-button (click)="reset()" color="primary"style="margin-right: 20px;">reset</button>
-        <button mat-raised-button (click)="onDelete(formGroup)" color="primary">delete</button>
+        <br>
+        <button mat-raised-button (click)="onSave()" [disabled]="!formGroup.valid" *ngIf="id == 0" color="primary" style="margin-right: 20px;">save</button>
+        <button mat-raised-button (click)="onUpdate()"  [disabled]="!formGroup.valid" *ngIf="id != 0" color="primary" style="margin-right: 20px;">update</button>
+        <button mat-raised-button (click)="reset()" *ngIf="id == 0" color="primary"style="margin-right: 20px;">reset</button>
+        <button mat-raised-button (click)="onDelete(formGroup)" *ngIf="id != 0" color="primary">delete</button>
     </form>
 </div>

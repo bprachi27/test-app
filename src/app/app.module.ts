@@ -17,6 +17,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +41,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatInputModule,
     MatButtonModule,
     MatAutocompleteModule,
-    MatRadioModule
+    MatRadioModule,
+    MatIconModule
     // MatTreeModule
   ],
   providers: [EmployeesServiceService],

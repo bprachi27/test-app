@@ -20,8 +20,10 @@
     </button>
   </div> -->
 
+  <button mat-mini-fab color="primary" (click)="addEmployee()">
+    <mat-icon>add</mat-icon>
+  </button>
 <div style="padding-right: 40px; padding-top: 20px;">
-  <button type="button" mat-raised-button (click)="addEmployee()" color="primary">add</button>
   <cdk-virtual-scroll-viewport [tvsItemSize]="50" class="wrapper mat-elevation-z2">
       <mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table"> 
           <!-- id Column -->
